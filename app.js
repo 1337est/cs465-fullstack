@@ -3,6 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var hbs = require('hbs');
+
+// Initialize mongoose / database connection
+require('./app_server/models/db');
 
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
@@ -13,10 +17,8 @@ var aboutRouter = require('./app_server/routes/about');
 var contactRouter = require('./app_server/routes/contact');
 var newsRouter = require('./app_server/routes/news');
 
-
 // view engine setup
 var app = express();
-var hbs = require('hbs');
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
