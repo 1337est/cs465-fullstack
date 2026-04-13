@@ -6,7 +6,7 @@ var logger = require('morgan');
 var hbs = require('hbs');
 
 // Initialize mongoose / database connection
-require('./app_server/models/db');
+require('./app_api/models/db');
 
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
@@ -16,6 +16,8 @@ var mealsRouter = require('./app_server/routes/meals');
 var aboutRouter = require('./app_server/routes/about');
 var contactRouter = require('./app_server/routes/contact');
 var newsRouter = require('./app_server/routes/news');
+
+var apiRouter = require('./app_api/routes/index');
 
 // view engine setup
 var app = express();
@@ -37,6 +39,8 @@ app.use('/meals', mealsRouter);
 app.use('/about', aboutRouter);
 app.use('/contact', contactRouter);
 app.use('/news', newsRouter);
+
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
