@@ -59,7 +59,7 @@ const tripsUpdateTrip = async (req, res) => {
         image: req.body.image,
         description: req.body.description
       },
-      { new: true }
+      { returnDocument: 'after' }
     ).exec();
     if (!q) return res.status(400).json({ message: 'trip not found' });
     return res.status(201).json(q);
