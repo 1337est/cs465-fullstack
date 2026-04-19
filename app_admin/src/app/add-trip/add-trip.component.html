@@ -1,1 +1,24 @@
-<p>add-trip works!</p>
+<div class="col-md-4">
+  <h2 class="text-center">Add Trip</h2>
+  <form *ngIf="addForm" [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="form-group" *ngFor="let field of [
+      {name:'code',label:'Code',type:'text'},
+      {name:'name',label:'Name',type:'text'},
+      {name:'length',label:'Length',type:'text'},
+      {name:'start',label:'Start',type:'date'},
+      {name:'resort',label:'Resort',type:'text'},
+      {name:'perPerson',label:'Per Person',type:'text'},
+      {name:'image',label:'Image Name',type:'text'},
+      {name:'description',label:'Description',type:'text'}
+    ]">
+      <label>{{field.label}}:</label>
+      <input [type]="field.type" [formControlName]="field.name"
+             [placeholder]="field.label" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f[field.name].errors }">
+      <div *ngIf="submitted && f[field.name].errors" class="invalid-feedback">
+        <div *ngIf="f[field.name].errors?.['required']">{{field.label}} is required</div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+  </form>
+</div>

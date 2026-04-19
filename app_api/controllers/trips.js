@@ -23,7 +23,54 @@ const tripsFindByCode = async (req, res) => {
     }
 };
 
+// POST: /trips
+const tripsAddTrip = async (req, res) => {
+  const newTrip = new Trip({
+    code: req.body.code,
+    name: req.body.name,
+    length: req.body.length,
+    start: req.body.start,
+    resort: req.body.resort,
+    perPerson: req.body.perPerson,
+    image: req.body.image,
+    description: req.body.description
+  });
+  try {
+    const q = await newTrip.save();
+    if (!q) return res.status(400).json({ message: 'trip not saved' });
+    return res.status(201).json(q);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+};
+
+// PUT: /trips/:tripCode
+const tripsUpdateTrip = async (req, res) => {
+  try {
+    const q = await Trip.findOneAndUpdate(
+      { code: req.params.tripCode },
+      {
+        code: req.body.code,
+        name: req.body.name,
+        length: req.body.length,
+        start: req.body.start,
+        resort: req.body.resort,
+        perPerson: req.body.perPerson,
+        image: req.body.image,
+        description: req.body.description
+      },
+      { new: true }
+    ).exec();
+    if (!q) return res.status(400).json({ message: 'trip not found' });
+    return res.status(201).json(q);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
+
 module.exports = {
-    tripsList,
-    tripsFindByCode
+  tripsList,
+  tripsFindByCode,
+  tripsAddTrip,
+  tripsUpdateTrip
 };
