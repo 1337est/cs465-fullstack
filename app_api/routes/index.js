@@ -8,6 +8,7 @@ router.route('/trips')
 
 router.route('/trips/:tripCode')
   .get(controller.tripsFindByCode)
-  .put(controller.tripsUpdateTrip);
+  .put(controller.tripsUpdateTrip)
+  .delete(controller.tripsDeleteTrip);
 
 module.exports = router;
