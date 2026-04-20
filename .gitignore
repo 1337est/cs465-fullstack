@@ -3,3 +3,12 @@ travlr.zip
 
 # npm
 node_modules
+
+# secrets
+.env
+
+# Angular build cache
+.angular/
+
+# IDE
+.vscode/
